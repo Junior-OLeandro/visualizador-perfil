@@ -3,7 +3,7 @@ import { getElements, showLoading, renderProfile, clearResults, showError } from
 
 const { inputSearch, btnSearch, profileResults } = getElements();
 
-btnSearch.addEventListener('click', async () => {
+async function getUserProfile() {
     const userName = inputSearch.value;
     if (userName) {
         showLoading(profileResults);
@@ -19,5 +19,13 @@ btnSearch.addEventListener('click', async () => {
         }
     } else {
         showError('Por favor, digite um nome de usuário.');
+    }
+};
+
+btnSearch.addEventListener('click', getUserProfile);
+
+inputSearch.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+        getUserProfile();
     }
 });
