@@ -1,4 +1,4 @@
-import { fetchUserData } from './api.js';
+import { fetchGithubUserRepos, fetchUserData } from './api.js';
 import { getElements, showLoading, renderProfile, clearResults, showError } from './ui.js';
 
 const { inputSearch, btnSearch, profileResults } = getElements();
@@ -9,8 +9,9 @@ btnSearch.addEventListener('click', async () => {
         showLoading(profileResults);
         try {
             const userData = await fetchUserData(userName);
+            const userRepos = await fetchGithubUserRepos(userName)
             console.log(userData);
-            renderProfile(profileResults, userData);
+            renderProfile(userData, userRepos, profileResults);
         } catch (error) {
             console.error('Erro ao buscar o perfil:', error);
             showError('Ocorreu um erro ao buscar perfil. Tente novamente.');

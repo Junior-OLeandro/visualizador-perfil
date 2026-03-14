@@ -7,3 +7,11 @@ export async function fetchUserData(userName) {
     }
     return await response.json();
 }
+
+export async function fetchGithubUserRepos(userName) {
+    const response = await fetch(`${baseUrl}/users/${userName}/repos?per-page=10&sort=created`);
+    if (!response.ok) {
+        throw new Error('Repositório não encontrato.');
+    }
+    return await response.json()
+}
